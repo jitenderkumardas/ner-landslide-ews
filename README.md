@@ -45,4 +45,4 @@ This project follows a tiered review process — see `docs/adr/tiering.md`. In s
 
 ## License
 
-TBD — see project owner before assuming reuse rights.
+Apache-2.0 — see [LICENSE](./LICENSE).
