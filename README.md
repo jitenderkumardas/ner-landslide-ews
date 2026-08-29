@@ -41,7 +41,7 @@ Building against **mocked adapters** first; no live API access yet. Target sourc
 
 ## Contributing / working practices
 
-This project follows a tiered review process — see `docs/adr/tiering.md`. In short: dashboard and field-app changes need one reviewer; anything touching `risk-engine/` or `alerting/` needs two, with independent re-derivation of the logic, not just a read-through. See `.antigravity/rules.md` for the agent-assisted development constraints in force for this repo.
+This project follows a tiered review process — see `docs/adr/tiering.md`. In short: dashboard and field-app changes need one reviewer; anything touching `risk-engine/` or `alerting/` needs two, with independent re-derivation of the logic, not just a read-through. See `.agents\rules\core-rules.md` for the agent-assisted development constraints in force for this repo.
 
 ## License
 
