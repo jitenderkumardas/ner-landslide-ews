@@ -1,10 +1,10 @@
 ## What does this PR do?
 
-<!-- One or two sentences. If this touches services/risk-engine/ or services/alerting/, say exactly what changed in the logic, not just "updated risk engine". -->
+<!-- One or two sentences. If this touches services/risk_engine/ or services/alerting/, say exactly what changed in the logic, not just "updated risk engine". -->
 
 ## Tier of files touched
 
-- [ ] Tier 0/1 (`services/risk-engine/`, `services/alerting/`) — see extra checklist below
+- [ ] Tier 0/1 (`services/risk_engine/`, `services/alerting/`) — see extra checklist below
 - [ ] Tier 2 (`services/ingestion/`, `services/api-gateway/`, `services/gis-dashboard/`, `field-app/`)
 - [ ] Tier 3 (`docs/`, `infra/` non-prod)
 
@@ -17,7 +17,7 @@
 - [ ] No new claims in code/docs/UI copy that belong on the "do not claim yet" list (see `.agents/rules/core-rules.md`)
 - [ ] Docstrings added for new functions/classes (feeds the auto-doc build)
 
-## Extra checklist — Tier 0/1 only (risk-engine / alerting)
+## Extra checklist — Tier 0/1 only (risk_engine / alerting)
 
 - [ ] I re-derived the changed logic independently rather than just reading the diff (self-review while solo; ask a teammate/mentor once available)
 - [ ] Any threshold, weight, or fusion formula change is called out explicitly below, not buried in the diff:

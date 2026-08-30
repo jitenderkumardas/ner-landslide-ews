@@ -3,7 +3,7 @@ Base interface for rainfall data adapters.
 
 Every rainfall adapter (mock or real) must return records in this shape.
 This is the contract that lets us swap the mock adapter for the real IMD
-adapter later without touching anything downstream (risk-engine, GIS layer).
+adapter later without touching anything downstream (risk_engine, GIS layer).
 """
 
 from abc import ABC, abstractmethod
