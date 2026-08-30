@@ -19,7 +19,7 @@ repos:
     hooks:
       - id: gitleaks
 
-  # --- Python: lint + format (services/risk-engine, services/ingestion, services/alerting, services/api-gateway if Python) ---
+  # --- Python: lint + format (services/risk_engine, services/ingestion, services/alerting, services/api-gateway if Python) ---
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.6.9
     hooks:

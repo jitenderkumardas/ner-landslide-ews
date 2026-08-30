@@ -9,7 +9,7 @@ response schema without documentation).
 This stub exists so the factory in __init__.py has a real target to
 switch to once access is granted — the interface (RainfallAdapter) is
 already fixed by base.py, so implementing this later should not require
-changing risk-engine, GIS, or alerting code at all.
+changing risk_engine, GIS, or alerting code at all.
 
 TODO: real API — not yet authorized. Do not implement request logic
 against an assumed schema; wait for actual IMD API documentation.

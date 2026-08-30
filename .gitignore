@@ -7,7 +7,7 @@
 credentials.json
 service-account*.json
 
-# --- Python (risk-engine, ingestion, api-gateway) ---
+# --- Python (risk_engine, ingestion, api-gateway) ---
 __pycache__/
 *.pyc
 *.pyo

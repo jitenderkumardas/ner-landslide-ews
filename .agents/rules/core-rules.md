@@ -14,7 +14,7 @@ This is an AI-based early warning and landslide risk monitoring system for India
 
 | Path                                                                                    | Tier     | Rule                                                                                                                                                                                            |
 | --------------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `services/risk-engine/`                                                                 | Tier 0/1 | Never merge without flagging for 2-reviewer sign-off. Never silently change a threshold, weight, or fusion formula — call it out explicitly in the PR description.                              |
+| `services/risk_engine/`                                                                 | Tier 0/1 | Never merge without flagging for 2-reviewer sign-off. Never silently change a threshold, weight, or fusion formula — call it out explicitly in the PR description.                              |
 | `services/alerting/`                                                                    | Tier 0/1 | Same as above. Alert severity mapping and CAP object generation must match `docs/adr/alert-policy.md` exactly — if that file doesn't exist yet, stop and ask rather than inventing the mapping. |
 | `services/ingestion/`, `services/api-gateway/`, `services/gis-dashboard/`, `field-app/` | Tier 2   | Standard 1-reviewer PR flow. Still must preserve provenance fields (rule 4).                                                                                                                    |
 | `docs/`, `infra/` non-prod configs                                                      | Tier 3   | Normal speed, lighter review.                                                                                                                                                                   |
@@ -36,7 +36,7 @@ transformation_version  # version tag of whatever pipeline touched it
 
 If you write an ingestion adapter that doesn't carry these through, that's a bug — fix it before marking the task done, don't wait for review to catch it.
 
-## 5. Model versioning — required for anything in `risk-engine/`
+## 5. Model versioning — required for anything in `risk_engine/`
 
 Every trained model artifact or rule-based threshold change must log: model/version id, dataset version used, evaluation metrics (recall, precision, PR-AUC, lead time — not just accuracy), calibration notes, and threshold value. Write this to `docs/adr/model-versions.md` as an append-only log, one entry per change.
 

@@ -4,7 +4,7 @@ objects shaped like the real IMD adapter eventually will.
 
 This is intentional: we don't have IMD API access yet (see
 .agents/rules/core-rules.md, section 3), so everything upstream
-(risk-engine, GIS layer) is built and tested against this mock first.
+(risk_engine, GIS layer) is built and tested against this mock first.
 Swapping to the real adapter later should require zero changes outside
 this file and real_adapter.py, because both implement RainfallAdapter.
 """

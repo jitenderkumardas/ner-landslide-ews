@@ -21,19 +21,19 @@ Every commit follows: `<type>(<scope>): <short description>`
 | `revert`   | reverting a previous commit            |
 
 **Scopes** (match the folder you're touching):
-`ingestion`, `risk-engine`, `alerting`, `api-gateway`, `gis-dashboard`, `field-app`, `infra`, `docs`, `agents` (for `.agents/` rules changes)
+`ingestion`, `risk_engine`, `alerting`, `api-gateway`, `gis-dashboard`, `field-app`, `infra`, `docs`, `agents` (for `.agents/` rules changes)
 
 **Examples:**
 
 ```
 feat(ingestion): add mock adapter for IMD rainfall data
-fix(risk-engine): correct soil-moisture normalization bug
+fix(risk_engine): correct soil-moisture normalization bug
 docs(phases): add Phase 4 ML validation plan
 chore: add pre-commit hooks and CI workflow
-risk-engine(threshold): raise rainfall trigger to 150mm/24h — see PR #12 for backtest
+risk_engine(threshold): raise rainfall trigger to 150mm/24h — see PR #12 for backtest
 ```
 
-Why this matters here specifically: commit history for `risk-engine` and `alerting` is your audit trail if this system's decisions are ever questioned. A vague `"updated stuff"` commit on those paths is not acceptable — say what changed and why.
+Why this matters here specifically: commit history for `risk_engine` and `alerting` is your audit trail if this system's decisions are ever questioned. A vague `"updated stuff"` commit on those paths is not acceptable — say what changed and why.
 
 ## Branching
 
@@ -42,7 +42,7 @@ Why this matters here specifically: commit history for `risk-engine` and `alerti
 
 ## Pull requests
 
-- Fill out the PR template fully — especially the Tier 0/1 extra checklist if you touched `risk-engine/` or `alerting/`.
+- Fill out the PR template fully — especially the Tier 0/1 extra checklist if you touched `risk_engine/` or `alerting/`.
 - While solo: don't merge a Tier 0/1 PR the same session you wrote it. Come back after a break, re-read the diff as if reviewing someone else's code, then merge.
 - Once teammates join: Tier 0/1 PRs require an actual second person's review before merge — update branch protection settings at that point (see `docs/adr/tiering.md`).
 
