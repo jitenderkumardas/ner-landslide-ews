@@ -1,0 +1,47 @@
+repos:
+  # --- General file hygiene ---
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ["--maxkb=2048"]
+      - id: check-yaml
+      - id: check-json
+      - id: detect-private-key
+      - id: mixed-line-ending
+
+  # --- Secret scanning (catches API keys, tokens, credentials before commit) ---
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+
+  # --- Python: lint + format (services/risk-engine, services/ingestion, services/alerting, services/api-gateway if Python) ---
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: ["--fix"]
+      - id: ruff-format
+
+  # --- JS/TS/JSON/YAML/Markdown formatting (field-app, gis-dashboard, docs) ---
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        types_or: [javascript, jsx, ts, tsx, json, yaml, markdown]
+        exclude: ^docs/phases/ # don't reformat the canonical planning docs
+
+  # --- Dependency sanity: fails if package.json/requirements.txt changed without lockfile update ---
+  - repo: local
+    hooks:
+      - id: check-lockfile-sync
+        name: Check lockfiles are in sync with manifests
+        entry: |
+          bash -c 'echo "Reminder: if you edited requirements.txt or package.json, regenerate the lockfile before committing."'
+        language: system
+        files: '(requirements\.txt|package\.json)$'
+        verbose: true
