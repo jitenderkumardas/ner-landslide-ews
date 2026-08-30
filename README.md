@@ -10,13 +10,13 @@ Assess the need, feasibility, and viability of — and then build — an AI-enab
 
 ## Project status
 
-| Phase | Status |
-|---|---|
-| Phase 1 — Planning & Feasibility | ✅ Complete |
-| Phase 2 — Requirements Analysis | ✅ Complete |
-| Phase 3 — System Design & Architecture | ✅ Complete |
+| Phase                                       | Status         |
+| ------------------------------------------- | -------------- |
+| Phase 1 — Planning & Feasibility            | ✅ Complete    |
+| Phase 2 — Requirements Analysis             | ✅ Complete    |
+| Phase 3 — System Design & Architecture      | ✅ Complete    |
 | Phase 4 — ML Model Development & Validation | 🚧 In progress |
-| Phase 5 — Pilot Deployment | ⏳ Not started |
+| Phase 5 — Pilot Deployment                  | ⏳ Not started |
 
 Full planning documents: [`docs/phases/`](./docs/phases)
 

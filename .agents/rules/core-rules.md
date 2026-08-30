@@ -12,12 +12,12 @@ This is an AI-based early warning and landslide risk monitoring system for India
 
 ## 2. Risk tiering — this determines how carefully you must work in each folder
 
-| Path | Tier | Rule |
-|---|---|---|
-| `services/risk-engine/` | Tier 0/1 | Never merge without flagging for 2-reviewer sign-off. Never silently change a threshold, weight, or fusion formula — call it out explicitly in the PR description. |
-| `services/alerting/` | Tier 0/1 | Same as above. Alert severity mapping and CAP object generation must match `docs/adr/alert-policy.md` exactly — if that file doesn't exist yet, stop and ask rather than inventing the mapping. |
-| `services/ingestion/`, `services/api-gateway/`, `services/gis-dashboard/`, `field-app/` | Tier 2 | Standard 1-reviewer PR flow. Still must preserve provenance fields (rule 4). |
-| `docs/`, `infra/` non-prod configs | Tier 3 | Normal speed, lighter review. |
+| Path                                                                                    | Tier     | Rule                                                                                                                                                                                            |
+| --------------------------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `services/risk-engine/`                                                                 | Tier 0/1 | Never merge without flagging for 2-reviewer sign-off. Never silently change a threshold, weight, or fusion formula — call it out explicitly in the PR description.                              |
+| `services/alerting/`                                                                    | Tier 0/1 | Same as above. Alert severity mapping and CAP object generation must match `docs/adr/alert-policy.md` exactly — if that file doesn't exist yet, stop and ask rather than inventing the mapping. |
+| `services/ingestion/`, `services/api-gateway/`, `services/gis-dashboard/`, `field-app/` | Tier 2   | Standard 1-reviewer PR flow. Still must preserve provenance fields (rule 4).                                                                                                                    |
+| `docs/`, `infra/` non-prod configs                                                      | Tier 3   | Normal speed, lighter review.                                                                                                                                                                   |
 
 ## 3. Data source honesty
 
@@ -33,6 +33,7 @@ source_timestamp    # when the source says this data is from
 ingestion_timestamp # when we pulled it
 transformation_version  # version tag of whatever pipeline touched it
 ```
+
 If you write an ingestion adapter that doesn't carry these through, that's a bug — fix it before marking the task done, don't wait for review to catch it.
 
 ## 5. Model versioning — required for anything in `risk-engine/`
@@ -42,6 +43,7 @@ Every trained model artifact or rule-based threshold change must log: model/vers
 ## 6. Language and claims discipline — "do not claim yet" list
 
 Do not write, in code comments, docstrings, UI copy, README, or generated docs, any of the following until they are actually validated and a human has signed off:
+
 - Specific accuracy/precision numbers (e.g. ">85% accuracy") unless pulled directly from a logged backtest result in `docs/adr/model-versions.md`
 - "Real-time" unless the actual measured latency has been tested and logged
 - "Covers all of NER" or similar full-coverage claims during pilot phase — say "pilot corridor" or name the specific district/route instead
