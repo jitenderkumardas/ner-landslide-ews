@@ -13,6 +13,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
 
 from services.ingestion.rainfall import get_rainfall_adapter
 from services.risk_engine import calculate_rainfall_risk
@@ -26,6 +27,18 @@ app = FastAPI(
         "calibration status."
     ),
     version="0.1.0",
+)
+
+# CORS: wide open for local dev only. Before this touches anything
+# beyond a laptop demo, restrict allow_origins to the actual dashboard
+# domain(s) — "*" here is a deliberate, temporary dev convenience, not
+# a production setting. Flag this in review if it's still "*" once
+# real deployment is discussed.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["GET"],
+    allow_headers=["*"],
 )
 
 # How far back to look for records to feed into the windowed risk
