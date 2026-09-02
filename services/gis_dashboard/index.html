@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>NER Landslide EWS — Risk Map (Pre-Pilot)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Leaflet via CDN — no build step needed for this first-pass dashboard.
+     When this graduates to the React + MapLibre setup in the long-term
+     architecture, this file can be retired; the API contract (
+     GET /risk-assessments) stays the same either way. -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+  html, body { height: 100%; margin: 0; font-family: system-ui, sans-serif; }
+  #map { height: 100%; width: 100%; }
+
+  #disclaimer-banner {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: #7a1f1f;
+    color: white;
+    text-align: center;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  #legend {
+    position: absolute;
+    bottom: 24px; right: 12px;
+    z-index: 1000;
+    background: white;
+    padding: 10px 14px;
+    border-radius: 6px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+    font-size: 13px;
+  }
+  #legend .row { display: flex; align-items: center; margin: 3px 0; }
+  #legend .swatch { width: 14px; height: 14px; border-radius: 50%; margin-right: 8px; display: inline-block; }
+
+  #status {
+    position: absolute;
+    top: 34px; left: 12px;
+    z-index: 1000;
+    background: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+  }
+
+  #refresh-btn {
+    position: absolute;
+    top: 34px; right: 12px;
+    z-index: 1000;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    background: #1f4a7a;
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  #refresh-btn:hover { background: #163a61; }
+</style>
+</head>
+<body>
+
+<div id="disclaimer-banner">
+  ⚠ PRE-PILOT MOCK DATA — not connected to live sensors, not validated, not used for real alerting
+</div>
+
+<div id="map"></div>
+<div id="status">Loading…</div>
+<button id="refresh-btn" onclick="loadRiskData()">Refresh</button>
+
+<div id="legend">
+  <div class="row"><span class="swatch" style="background:#2ecc71;"></span> GREEN — no signal</div>
+  <div class="row"><span class="swatch" style="background:#f1c40f;"></span> YELLOW — elevated</div>
+  <div class="row"><span class="swatch" style="background:#e67e22;"></span> ORANGE — high</div>
+  <div class="row"><span class="swatch" style="background:#e74c3c;"></span> RED — severe</div>
+</div>
+
+<script>
+  // Change this if your API is running somewhere other than localhost:8000
+  const API_BASE_URL = "http://localhost:8000";
+
+  const SEVERITY_COLORS = {
+    GREEN: "#2ecc71",
+    YELLOW: "#f1c40f",
+    ORANGE: "#e67e22",
+    RED: "#e74c3c",
+  };
+
+  // Centered on the East Khasi Hills pilot corridor (Shillong–Sohra road)
+  const map = L.map('map').setView([25.42, 91.80], 11);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  let markers = [];
+
+  function clearMarkers() {
+    markers.forEach(m => map.removeLayer(m));
+    markers = [];
+  }
+
+  async function loadRiskData() {
+    const statusEl = document.getElementById('status');
+    statusEl.textContent = "Loading…";
+    try {
+      const response = await fetch(`${API_BASE_URL}/risk-assessments`);
+      if (!response.ok) throw new Error(`API returned ${response.status}`);
+      const data = await response.json();
+
+      clearMarkers();
+
+      data.assessments.forEach(a => {
+        const color = SEVERITY_COLORS[a.severity] || "#999";
+        const marker = L.circleMarker([a.latitude, a.longitude], {
+          radius: 10,
+          fillColor: color,
+          color: "#333",
+          weight: 1,
+          fillOpacity: 0.85,
+        }).addTo(map);
+
+        marker.bindPopup(`
+          <strong>${a.grid_cell_id}</strong><br/>
+          ${a.district}, ${a.state}<br/>
+          Severity: <strong>${a.severity}</strong><br/>
+          Cumulative rainfall (${a.window_hours}h): ${a.cumulative_rainfall_mm}mm<br/>
+          Window end: ${a.window_end}<br/>
+          <em style="font-size:11px; color:#777;">Threshold: ${a.threshold_version}</em>
+        `);
+
+        markers.push(marker);
+      });
+
+      statusEl.textContent = `${data.count} grid cells · updated ${new Date().toLocaleTimeString()}`;
+    } catch (err) {
+      statusEl.textContent = `Failed to load: ${err.message}. Is the API running at ${API_BASE_URL}?`;
+      console.error(err);
+    }
+  }
+
+  loadRiskData();
+</script>
+
+</body>
+</html>
