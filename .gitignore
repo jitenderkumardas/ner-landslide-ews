@@ -54,3 +54,11 @@ Thumbs.db
 # --- Antigravity local state (keep rules.md, ignore caches) ---
 .antigravity/cache/
 .antigravity/tmp/
+
+# --- Backtest generated reports (regenerable: python -m tests.backtests.run_backtest) ---
+# Decision recorded 2026-09-02: gitignore rather than commit because these files are
+# fully deterministic outputs of the fixture CSVs + harness. Committing them would
+# create false "changes" on every re-run and pollute blame history. The fixture CSVs
+# themselves (tests/backtests/fixtures/*.csv) ARE committed because they are the
+# hand-authored ground truth that the harness is evaluated against.
+reports/backtest/
