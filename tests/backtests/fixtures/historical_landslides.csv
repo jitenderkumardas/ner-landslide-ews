@@ -1,0 +1,5 @@
+event_id,event_timestamp,grid_cell_id,latitude,longitude,district,event_type,severity,source
+BTEST-001,2026-07-02T06:00:00+05:30,GRID-EKH-005,25.2702,91.7323,East Khasi Hills,landslide,HIGH,synthetic_fixture
+BTEST-002,2026-07-06T05:00:00+05:30,GRID-EKH-003,25.4200,91.8005,East Khasi Hills,landslide,MODERATE,synthetic_fixture
+BTEST-003,2026-07-12T05:00:00+05:30,GRID-EKH-001,25.5788,91.8933,East Khasi Hills,landslide,MODERATE,synthetic_fixture
+BTEST-004,2026-07-15T04:00:00+05:30,GRID-EKH-004,25.3480,91.7690,East Khasi Hills,landslide,LOW,synthetic_fixture
